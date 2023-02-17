@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>motoo - user & roles</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+			  <li class="nav-item">
+				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+			  </li>
+			  <li class="nav-item d-none d-sm-inline-block">
+				<a href="http://localhost:7000/motoo" class="nav-link">Store</a>
+			  </li>
+			  <li class="nav-item d-none d-sm-inline-block">
+				<a href="#" class="nav-link">Contact</a>
+			  </li>
+			</ul>
+
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+			  <!-- Navbar Search -->
+			  <li class="nav-item">
+				<a class="nav-link" data-widget="navbar-search" href="#" role="button">
+				  <i class="fas fa-search"></i>
+				</a>
+				<div class="navbar-search-block">
+				  <form class="form-inline">
+					<div class="input-group input-group-sm">
+					  <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+					  <div class="input-group-append">
+						<button class="btn btn-navbar" type="submit">
+						  <i class="fas fa-search"></i>
+						</button>
+						<button class="btn btn-navbar" type="button" data-widget="navbar-search">
+						  <i class="fas fa-times"></i>
+						</button>
+					  </div>
+					</div>
+				  </form>
+				</div>
+			  </li>
+			  <!-- Notifications Dropdown Menu -->
+			  <li class="nav-item dropdown">
+				<a class="nav-link" data-toggle="dropdown" href="#">
+				  <i class="far fa fa-ellipsis-v"></i>
+				</a>
+				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+				  <span class="dropdown-item dropdown-header">My Setting</span>
+				  <div class="dropdown-divider"></div><a href="#" class="dropdown-item"><i class="fa fa-user-circle"></i> My Account</a>
+				  <div class="dropdown-divider"></div><a href="#" class="dropdown-item"><i class="fa fa-key"></i> Setting My Password</a>
+				  <div class="dropdown-divider"></div><a href="#" class="dropdown-item dropdown-footer"><i class="fa fa-sign-out"></i> Login out</a>
+				</div>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" data-widget="fullscreen" href="#" role="button">
+				  <i class="fas fa-expand-arrows-alt"></i>
+				</a>
+			  </li>
+			</ul>
+		  </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="../">
+				<img src="../../img/logo.png" alt="" height="75px">
+			</a>
+
+			<!-- Sidebar -->
+			<div class="sidebar">
+			  <!-- Sidebar user panel (optional) -->
+			  <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				<div class="image">
+				  <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+				</div>
+				<div class="info">
+				  <a href="#" class="d-block">Administrator</a>
+				</div>
+			  </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					  <!-- Add icons to the links using the .nav-icon class
+						   with font-awesome or any other icon font library -->
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/dashboard.html" class="nav-link">
+						  <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
+						</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/chart.html" class="nav-link">
+						  <i class="nav-icon fas fa-chart-pie"></i><p>Chart</p>
+						</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/report.html" class="nav-link">
+						  <i class="nav-icon fas fa-book"></i><p>Report</p>
+						</a>
+					  </li>
+					  <li class="nav-header">Master Mangement</li>
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/master/apps.html" class="nav-link">
+						  <i class="nav-icon fas fa-laptop"></i>
+						  <p>Application</p>
+						</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/master/tech.html" class="nav-link">
+						  <i class="nav-icon far fa-user-circle"></i>
+						  <p>Technician</p>
+						</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/master/user.html" class="nav-link active">
+						  <i class="nav-icon fas fa-cog"></i>
+						  <p>User & Roles</p>
+						</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/master/probis.html" class="nav-link">
+						  <i class="nav-icon fas fa-suitcase"></i>
+						  <p>Probis & Detail</p>
+						</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://localhost:7000/motoo/apps/master/cate.html" class="nav-link">
+						  <i class="nav-icon fas fa-columns"></i>
+						  <p>Category</p>
+						</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="#" class="nav-link">
+						  <i class="nav-icon far fa-plus-square"></i>
+						  <p>
+							Extras
+							<i class="fas fa-angle-left right"></i>
+						  </p>
+						</a>
+						<ul class="nav nav-treeview">
+						  <li class="nav-item">
+							<a href="#" class="nav-link">
+							  <i class="far fa-circle nav-icon"></i>
+							  <p>Extras 1</p>
+							</a>
+						  </li>
+						  <li class="nav-item">
+							<a href="pages/examples/lockscreen.html" class="nav-link">
+							  <i class="far fa-circle nav-icon"></i>
+							  <p>Extras 2</p>
+							</a>
+						  </li>
+						</ul>
+					  </li>
+					</ul>
+				</nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Data User</h1>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <button type="button" class="btn btn-block bg-gradient-primary" style="width:15%" data-toggle="modal"
+                    data-target="#modal-default">Tambah Data</button>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>ID Role</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>9</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>10</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>11</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>12</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>13</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>14</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>15</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>16</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>tes</td>
+                        <td>
+                          <a href="#" class="btn btn-warning"> edit </a>
+                          <a href="#" onclick="return confirm('Apakah yakin ingin menghapus data ini?')"
+                            class="btn btn-danger btn-atur"> hapus </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <!-- <tfoot>
+                      <tr>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>ID Role</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                      </tr>
+                      </tfoot> -->
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+			<div class="float-right d-none d-sm-block">
+			  <b>Version</b> 3.2.0
+			</div>
+			<strong>Copyright &copy; 2014-2022 <a href="https://sisi.id">SISI.id</a>.</strong> All rights reserved.
+		  </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <form>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Tambah Data User</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" placeholder="Enter Username">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <br><input type="checkbox" onclick="myFunction()"> Tampilkan Password
+              </div>
+              <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>End Date</label>
+                <input type="date" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <input type="text" class="form-control" placeholder="Enter Status">
+              </div>
+              <div class="form-group">
+                <label>ID Role</label>
+                <input type="text" class="form-control" placeholder="Enter ID Role">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
+          </div>
+      </form>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <!-- jQuery -->
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables  & ../plugins -->
+  <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../plugins/jszip/jszip.min.js"></script>
+  <script src="../plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="dist/js/demo.js"></script>
+  <!-- Page specific script -->
+  <script>
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,359 @@
+/* HEADER */
+#header-top{
+    margin-top:20px;
+    margin-left:12%;
+    margin-right:12%;
+}
+
+#logout-button{
+    float:right;
+    margin-right:3%;
+    margin-top:13px;
+    font-size:15px;
+    font-weight:bold;
+    border: 1px solid #D10024;
+    border-radius: 10px;
+    color: #D10024;
+    padding:10px;
+}
+
+/* pilih kategori */
+.input-select-categories{
+    margin-right: -2px;
+    border-radius: 10px 0px 0px 10px;
+    padding: 5px 15px;
+    background: #FFF;
+    border: 1px solid #E4E7ED;
+    height: 40px;
+
+}
+
+/* box search */
+#input-search{
+    width:50%;
+    height:40px;
+    padding-left:20px;
+    background: #FFF;
+    border: 1px solid #E4E7ED;
+}
+
+/* tombol button */
+.search-button{
+    height: 40px;
+    width: 75px;
+    background: #D10024;
+    color: #FFF;
+    font-weight: 700;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+    margin-left:-5px;
+}
+
+.fav-apps{
+    float:right;
+    margin-top:24px;
+    font-size:15px;
+    width:150px;
+    font-weight:bold;
+    margin-right:125px;
+}
+
+.my-account{
+    float:right;
+    padding:0px;
+    font-size:15px;
+    font-weight:bold;
+    border: 1px solid #D10024;
+    border-radius: 10px;
+    color: #D10024;
+    padding:10px;
+    margin-top:-32px;
+}
+
+
+/* 
+#search-box{
+    border:1px solid silver;
+    border-radius:10px;
+    width: 500px;
+    height:40px;
+    margin-left:27%;
+    margin-top:50px;
+    padding-top:15px;
+    padding-left:25px;
+} */
+
+
+#categories{
+    float:left;
+    font-weight:bold;
+    font-size: 20px;
+    margin-top:17px;
+}
+
+#garis-atas{
+    height:1px;
+    background-color: red;
+}
+
+
+
+/* FOOTER */
+#nav-footer{
+    padding-left: 15%;
+    padding-right:10%;
+}
+
+#main-footer{
+    background-color: #1A1A1A ;
+    color:white;
+    width: 100%;
+    position:relative;
+    bottom: 0px;
+    padding-top:25px;
+    margin-top: 50px;;
+}
+
+#main-footer-content{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#footer-content{
+    width:200px;
+    padding-bottom: 15px;
+    line-height: 30px;
+}
+
+#copyright{
+    text-align: center;
+    background-color: #383838;
+    width:100%;
+    padding-top:7px;
+    padding-bottom:7px;
+}
+
+
+/* MAIN CONTENT */
+#box-utama{
+    margin-top:20px;
+    margin-left:12%;
+    margin-right:12%;
+    overflow: hidden;
+}
+
+#web-mob-des{
+    width:360px;
+    height: 280px;
+    background-repeat:no-repeat;
+    background-size: 360px 280px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius:2px;
+}
+
+#card-content{
+    padding:15px;
+    margin-top:25px;
+    float:left;
+    background-color: #D10024;
+    border-radius:0px 5px 5px 0px;
+    color:white;
+    font-weight: bold;
+    opacity:0.8;
+}
+
+/* halaman detail */
+
+/* #detail-box{
+
+} */
+
+#user-guide{
+    background-color: #D9D9D9;
+    border-radius:5px;
+    padding-left:18px;
+    padding-top: 10px;
+    width:115px;
+    padding-bottom:1px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#tec-doc{
+    background-color: #5BC0DE;
+    border-radius:5px;
+    padding-left:22px;
+    padding-top: 10px;
+    width:188px;
+    padding-bottom:2px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#open-app{
+    background-color: #D10024;
+    border-radius:5px;
+    margin-top:25px;
+    padding: 10px;
+    padding-left:60px;
+    width:270px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color:white;
+}
+
+#add-favorites{
+    background-color: white;
+    border-radius:5px;
+    border: 1px solid #D10024;
+    margin-top:25px;
+    padding: 9px;
+    padding-left: 8px;
+    width:45px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color:white;
+}
+
+#review1{
+    padding:15px;
+    color:#D10024;
+    font-weight: bold;
+}
+
+#review2{
+    margin-left:50px;
+    padding:15px;
+}
+
+#review3{
+    margin-left: 50px;
+    padding:15px;
+}
+
+.button-submit{
+    margin-top:15px;
+    border-radius: 5px;
+    width: 100%;
+    height:35px;
+    color:white;
+    font-weight: bold;
+    background-color:#D10024;
+    opacity:0.9;
+    border:none;
+    text-decoration: none;
+}
+
+/* HALAMAN SEARCH */
+
+#home-category{
+    border-radius:5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height:50px;
+    padding-top:15px;
+    padding-bottom:15px;
+    padding-left:25px;
+
+}
+
+
+
+/* Footer Welcome (Login and Register Page) */
+
+.input-box{
+    border-radius:8px;
+    width:100%;
+    padding:10px;
+    border:1px solid silver
+}
+
+#sign-in-button{
+    padding:10px;
+    font-family: Poppins;
+    color:white;
+    font-weight: bold;
+    border:0;
+    border-radius:8px;
+    width:100%;
+    background-color: #BF2C45;
+}
+
+#log_box{
+    padding:25px;
+    position: absolute;
+    top: 42%; 
+    right: 50%;
+    transform: translate(50%,-50%);
+    width:350px;
+}
+
+#sign-up-button{
+    width:200px;
+    background-color: #BF2C45;
+    padding:10px;
+    font-family: Poppins;
+    color:white;
+    font-weight: bold;
+    border:0;
+    border-radius:8px;
+    margin-top:15px;
+}
+
+.input-box-register{
+    border-radius:8px;
+    width:200px;
+    padding:10px;
+    border:1px solid silver
+}
+
+
+#reg_box{
+    margin: 0 auto;
+    overflow:hidden;
+    padding:25px;
+    position: absolute;
+    top: 40%; 
+    right: 50%;
+    transform: translate(50%,-50%);
+    width:575px;
+}
+
+#footer-welcome{
+    bottom:0;
+    position: fixed;
+    margin-bottom:-5px;
+}
+
+#profile-box{
+    border:1px solid silver;
+    border-radius: 10px;
+    width:95%;
+    height:500px;
+    padding:25px;
+}
+
+#profile-pic{
+    margin-right:50px;
+}
+
+#profile-content-box{
+    margin-right:40px;
+    border:1px solid silver;
+    border-radius:10px;
+    padding:25px;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+    width:61%;
+    padding-bottom:10px;
+}
+
+.button-profile{
+    border: 2px solid silver;
+    border-radius:5px;
+    text-align:center;
+    padding:10px;
+    width:94%;
+    margin:10px;
+    font-weight: bold;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+}
+
+.profile-content{
+    font-size:18px;
+    font-weight:500;
+}
