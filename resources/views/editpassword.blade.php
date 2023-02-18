@@ -3,6 +3,7 @@
 <div id="box-utama">
     <div class="container">
         <div class="row">
+            {{-- tes --}}
             <div id="profile-box">
                 <div class="col-md-4" style="margin-right:20px;">
                     <img src="{{ asset('img/teknisi/maudy.jpg') }}" width="100%" border-radius=>
