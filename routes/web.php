@@ -70,3 +70,113 @@ Route::group(['middleware'=> ['auth','role:Reporter']], function(){
     Route::get('/chart/filter', [TicketController::class, 'filterChart'])->name('filterChart');
     Route::get('/report', [TicketController::class, 'reportSite']);
 });
+
+Route::get('/data-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/data');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getDataTicket');
+
+Route::get('/data-task-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/task/data');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getDataTask');
+
+Route::get('/jumlah-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-tiket');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTiket');
+
+Route::get('/jumlah-closed-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-closed');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTiketClosed');
+
+Route::get('/jumlah-canceled-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-canceled');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTiketCanceled');
+
+Route::get('/jumlah-approved-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-approved');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTiketApproved');
+
+Route::get('/jumlah-incident-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-incident');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTiketIncident');
+
+Route::get('/jumlah-request-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-request');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTiketRequest');
+
+Route::get('/jumlah-SLAPoints-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/SLAPoints');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTiketClosed');
+
+Route::get('/jumlah-IncidentClosed-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/IncidentClosed');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahIncidentClosed');
+
+Route::get('/jumlah-RequestClosed-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/RequestClosed');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahRequestClosed');
+
+Route::get('/jumlah-RequestCanceled-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/RequestCanceled');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahRequestCanceled');
+
+Route::get('/jumlah-IncidentCanceled-tiket-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/IncidentCanceled');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahIncidentCanceled');
+
+Route::get('/jumlah-task-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/task/jumlah-task');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTask');
+
+Route::get('/jumlah-task-closed-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/task/jumlah-closed');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTaskClosed');
+
+Route::get('/jumlah-task-SLApoints-nestjs', function(){
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/task/SLAPoints');
+    return response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+})->name('getJumlahTaskSLAPoints');
+
+Route::get('/jumlah-technician-tiket', function () {
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-technician');
+    return response($response->getBody(), $response->getStatusCode())
+        ->header('Content-Type', 'application/json');
+  });
+
+  Route::get('/jumlah-technician-task', function () {
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'http://localhost:3030/task/jumlah-technician');
+    return response($response->getBody(), $response->getStatusCode())
+        ->header('Content-Type', 'application/json');
+  });

@@ -11,9 +11,9 @@
             <div class="col-md-8">
                 <center> 
                     <h4> Complete vs In Progress </h4>
-                    <h6> {{ $year }}</h6>
+                    <h6> Data oleh: SIG Database</h6>
                 </center>
-                <div style="float:right;margin-top:-50px;"> 
+                {{-- <div style="float:right;margin-top:-50px;"> 
                     <form action="{{ Route('filterChart') }}" method="GET">
                         <select style="border-radius:5px;border:none;" name="year" class="input-select-categories" onchange='if(this.value != 0) {this.form.submit();} '>
                             <option value="0">Filter Year</option>
@@ -24,7 +24,7 @@
                             <option value="2020">2020</option>
                         </select>
                     </form>
-                </div>
+                </div> --}}
                 <br>
                 <div id="grafik" style="margin-left:-60px;"></div>
             </div>
@@ -44,45 +44,33 @@
         <div class="row" style="text-align: center">
             <div class="col-md-3" style="border-right:1px solid silver">
                 <span style="font-weight: bold">
-                    {{ $tiket->where('Request_Type', 'Request')->count() }}
+                    {{ count($tiket_api->where('Request_Type', 'Request'))}}
                 </span><br>
-                This Month Request
+                Total Request
             </div>
             <div class="col-md-3" style="border-right:1px solid silver">
                 <span style="font-weight: bold">
-                    {{ $tiket->where('Request_Type', 'Incident')->count() }}
+                    {{ count($tiket_api->where('Request_Type', 'Incident'))}}
                 </span><br>
-                This Month Incident
+                Total Incident
             </div>
             <div class="col-md-3" style="border-right:1px solid silver">
                 <span style="font-weight: bold" >
-                    {{ $tiket->where('Request_Type', 'Change')->count() }}
+                    {{ count($tiket_api->where('Request_Type', 'Change'))}}
                 </span><br>
-                This Month Change
+                Total Change
             </div>
             <div class="col-md-3">
                 <span style="font-weight: bold">
-                    {{ $tiket->where('Request_Type', 'Problem')->count() }}
+                    {{ count($tiket_api->where('Request_Type', 'Problem'))}}
                 </span><br>
-                This Month Problem
+                Total Problem
             </div>
         </div>
     </div>
 </div>
 
 <div class="container"> 
-        <div class="row" style="margin-left:20px;">
-            <div class="col-md-6">
-                <div class="db-card-detail" style="border-top: 10px solid green;height:430px;">
-                    <div id="piechart-tiket-teknisi" style="margin-top:-15px;"> </div>    
-                </div>
-            </div>
-            <div class="col-md-2" style="margin-left:75px;">
-                <div class="db-card-detail" style="border-top:10px solid #FFC107;height:430px;">
-                    <div id="piechart-task-teknisi" style="margin-top:-15px;"> </div>    
-                </div>
-            </div>
-        </div>
         <div class="row" style="margin-left:20px;margin-bottom:35px;">
             <div class="col-md-6">
                 <div class="db-card-detail" style="border-top:10px solid green; height:430px;">
@@ -104,8 +92,8 @@
 
 {{-- barplot tiket complete --}}
 <script>
-    var tiket_complete_request = <?php echo json_encode($tiket_complete_request) ?>;
-    var tiket_complete_incident = <?php echo json_encode($tiket_complete_incident) ?>;
+    var tiket_complete_request = <?php echo json_encode($tiket_request) ?>;
+    var tiket_complete_incident = <?php echo json_encode($tiket_incident) ?>;
     var bulan = <?php echo json_encode($bulan) ?>;
     Highcharts.setOptions({
             chart: {
@@ -200,10 +188,9 @@
     });
 </script>
 
-// bar chart tiket on progress
 <script>
-    var tiket_in_progress_request = <?php echo json_encode($tiket_in_progress_request) ?>;
-    var tiket_in_progress_incident = <?php echo json_encode($tiket_in_progress_incident) ?>;
+    var tiket_in_progress_request = <?php echo json_encode($tiket_request_inprogress) ?>;
+    var tiket_in_progress_incident = <?php echo json_encode($tiket_incident_inprogress) ?>;
     var bulan = <?php echo json_encode($bulan) ?>;
     Highcharts.setOptions({
             chart: {
@@ -299,10 +286,10 @@
 </script>
 
 
-//{{-- Progress Bar Request --}}
+// {{-- Progress Bar Request --}}
 <script>
-    var total_request = <?php echo json_encode($tiket->where('Request_Type', 'Request')->count()) ?>;
-    var request_completed = <?php echo json_encode($tiket->whereIn('Request_Status', ['Resolved', 'Closed', 'Canceled'])->where('Request_Type', 'Request')->count()) ?>;
+    var total_request = <?php echo json_encode(count($tiket_api->where('Request_Type', 'Request')))?>;
+    var request_completed = <?php echo json_encode($tiket_complete_request) ?>;
 
     var chart = new Highcharts.Chart({
         title: {
@@ -395,9 +382,8 @@
 
 //{{-- Progress Bar Incident --}}
 <script>
-    var total_incident = <?php echo json_encode($tiket->where('Request_Type', 'Incident')->count()) ?>;
-    var incident_completed = <?php echo json_encode($tiket->whereIn('Request_Status', ['Canceled', 'Resolved', 'Closed'])->where('Request_Type', 'Incident')->count()) ?>;
-
+    var total_incident = <?php echo json_encode(count($tiket_api->where('Request_Type', 'Incident'))) ?>;
+    var incident_completed = <?php echo json_encode($tiket_complete_incident)?>;
     var chart = new Highcharts.Chart({
         title: {
             text: 'Incident',
@@ -486,189 +472,13 @@
    
 </script>
 
-// {{-- Pie Chart Teknisi tiket--}}
-
-<script>
-    var teknisi_tiket = <?php echo json_encode($teknisi_tiket) ?>;
-    var total_tiket = <?php echo json_encode($teknisi_tiket->count()) ?>;
-    var teknisi = <?php echo json_encode($nama_teknisi) ?>;
-    var others = 0
-
-    for (let i = 5; i < teknisi_tiket.length; i++) {
-        others += teknisi_tiket[i].count;
-    };
-    
-    
-    Highcharts.setOptions({
-        chart: {
-            style: {
-                fontFamily: 'Montserrat'
-            }
-        }
-    });
-    Highcharts.chart('piechart-tiket-teknisi', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: '<span style="font-weight:bold;">Ticket in Technician</span>',
-            align: 'left',
-            
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                showInLegend: false,
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: <br> {point.y} Ticket ({point.percentage:.1f}%)'
-                }
-            }
-        },
-        series: [{
-            name: 'Persentase Tiket',
-            colorByPoint: true,
-            data: 
-            [    
-                {
-                name: teknisi[0],
-                y: teknisi_tiket[0].count,
-                sliced: true,
-                selected: true
-                
-            },
-            {
-                name: teknisi[1],
-                y: teknisi_tiket[1].count
-            },
-            {
-                name: teknisi[2],
-                y: teknisi_tiket[2].count
-            },
-            {
-                name: teknisi[3],
-                y: teknisi_tiket[3].count
-            },
-            {
-                name: teknisi[4],
-                y: teknisi_tiket[4].count
-            },
-            {
-                name: 'Others',
-                y: others
-            },
-            
-            
-        ]
-    }]
-});
-</script>
-
-// {{-- Pie Chart Teknisi task--}}
-<script>
-    var teknisi_task = <?php echo json_encode($teknisi_task) ?>;
-    var total_tiket = <?php echo json_encode($teknisi_task->count()) ?>;
-    var teknisi = <?php echo json_encode($nama_teknisi_task) ?>;
-    var others = 0
-
-    for (let i = 5; i < teknisi_task.length; i++) {
-        others += teknisi_task[i].count;
-    };
 
 
-    Highcharts.setOptions({
-        chart: {
-            style: {
-                fontFamily: 'Montserrat'
-            }
-        }
-    });
-    Highcharts.chart('piechart-task-teknisi', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: '<span style="font-weight:bold;">Ticket in Technician</span>',
-            align: 'left',
-            
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                showInLegend: false,
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: <br> {point.y} Ticket ({point.percentage:.1f}%)'
-                }
-            }
-        },
-        series: [{
-            name: 'Persentase Tiket',
-            colorByPoint: true,
-            data: 
-            [    
-            {
-                name: teknisi[0],
-                y: teknisi_task[0].count,
-                sliced: true,
-                selected: true
-                
-            },
-            {
-                name: teknisi[1],
-                y: teknisi_task[1].count
-            },
-            {
-                name: teknisi[2],
-                y: teknisi_task[2].count
-            },
-            {
-                name: teknisi[3],
-                y: teknisi_task[3].count
-            },
-            {
-                name: teknisi[4],
-                y: teknisi_task[4].count
-            },
-            {
-                name: 'Others',
-                y: others
-            },
-            
-            
-        ]
-    }]
-});
-
-</script>
 //{{-- Line Chart Monthly Recap --}}
 <script type="text/javascript">
     var tiket_complete = <?php echo json_encode($tiket_complete) ?>;
     var tiket_in_progress = <?php echo json_encode($tiket_in_progress) ?>;
+    console.log(tiket_complete);
     var bulan = <?php echo json_encode($bulan) ?>;
     Highcharts.chart('grafik', {
         

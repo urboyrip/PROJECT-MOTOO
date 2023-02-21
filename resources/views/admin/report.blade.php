@@ -45,32 +45,46 @@
     </div>
 
     <div class="row">
-        <div class="col-md-5">
-            <div class="ticket-status-card" style="background-color: #148A9D;height:110px;width:620px;">
-                <span style="padding-left:12px;padding-top:20px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
+        <div class="col-md-2">
+            <div class="ticket-status-card" style="background-color: #148A9D;height:80px;width:330px;">
+                <span style="padding-left:12px;padding-top:10px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
                     <i class="fa fa-ticket fa-2x" aria-hidden="true"></i>
                 </span>
                 <h5 style="color:white">
                     Request
                     <br>
-                    {{ $request->count() }}
+                    {{ count($request) }}
                 </h5>
                 <hr style="margin-top:-1px;margin-bottom:10px;">
-                70% Progress this month
+                
             </div>
         </div>
-        <div class="col-md-4"  style="margin-left:150px;">
-            <div class="ticket-status-card" style="height:110px;background-color: #FFC107;;color:black;width:620px;">
-                <span style="padding-left:12px;padding-top:20px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
+        <div class="col-md-2"  style="margin-left:150px;">
+            <div class="ticket-status-card" style="height:80px;background-color: green;;color:black;width:330px;">
+                <span style="padding-left:12px;padding-top:10px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
+                    <i class="fa fa-exchange     fa-2x" aria-hidden="true"></i>
+                </span>
+                <h5>
+                    Change
+                    <br>
+                    {{ count($jumlah_task) }}
+                </h5>
+                <hr  style="margin-top:-1px;margin-bottom:10px;">
+                
+            </div>
+        </div>
+        <div class="col-md-2"  style="margin-left:150px;">
+            <div class="ticket-status-card" style="height:80px;background-color: #FFC107;;color:black;width:330px;">
+                <span style="padding-left:12px;padding-top:10px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
                     <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i>
                 </span>
                 <h5>
                     Incident
                     <br>
-                    {{ $incident->count() }}
+                    {{ count($incident) }}
                 </h5>
                 <hr  style="margin-top:-1px;margin-bottom:10px;">
-                70% Progress this month
+                
             </div>
         </div>
     
@@ -78,13 +92,13 @@
     <div class="row" style="margin-left:20px;">
         <div class="col-md-6">
             <div class="db-card-detail" style="border-top: 10px solid #148A9D;padding-top:8px">
-                <h5> Total Request: {{ $request->count() }} </h5>
+                <h5> Total Request: {{ count($request) }} </h5>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                       <thead>
                         <tr>
                           <th scope="col">Name</th>
-                          <th scope="col">Progress</th>
+                          <th scope="col"> </th>
                           <th scope="col"><font color="red">Total</font> 
                         </tr>
                       </thead>
@@ -97,7 +111,7 @@
                                 
                             </td>
                             <td> 
-                                {{ $request->where('Request_Status', 'In Progress')->count() }}
+                                0
                             </td>
                         </tr>
                         <tr>
@@ -108,7 +122,7 @@
                                 
                             </td>
                             <td> 
-                                {{ $request->where('Request_Status', 'Resolved')->count() }}
+                                0
                             </td>
                         </tr>
                         <tr>
@@ -119,7 +133,7 @@
                                 
                             </td>
                             <td> 
-                                {{ $request->where('Request_Status', 'Canceled')->count() }}
+                                {{ $ticket_request_canceled->totalPoints }}
                             </td>
                         </tr>
                         <tr>
@@ -130,7 +144,18 @@
                                 
                             </td>
                             <td> 
-                                {{ $request->where('Request_Status', 'Closed')->count() }}
+                                {{ $ticket_request_closed->totalPoints }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Aprroved
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td> 
+                               {{ count($request->where('Approval_Status', 'Approved')) }}
                             </td>
                         </tr>
                         <tr>
@@ -141,7 +166,7 @@
                                 
                             </td>
                             <td> 
-                                -
+                                {{ $sla_realisasi_request }} %
                             </td>
                         </tr>
                       </tbody>
@@ -151,13 +176,13 @@
         </div>
         <div class="col-md-2"  style="margin-left:75px;margin-bottom:60px;">
             <div class="db-card-detail" style="border-top:10px solid #FFC107;padding-top:8px">
-                <h5> Total Incident: {{ $incident->count() }} </h5>
+                <h5> Total Incident: {{ count($incident) }} </h5>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                       <thead>
                         <tr>
                           <th scope="col">Name</th>
-                          <th scope="col">Progress</th>
+                          <th scope="col"> </th>
                           <th scope="col"><font color="red">Total</font> 
                         </tr>
                       </thead>
@@ -170,7 +195,7 @@
                                 
                             </td>
                             <td> 
-                                {{ $incident->where('Request_Status', 'In Progress')->count() }}
+                                0
                             </td>
                         </tr>
                         <tr>
@@ -181,7 +206,7 @@
                                 
                             </td>
                             <td> 
-                                {{ $incident->where('Request_Status', 'Resolved')->count() }}
+                                0
                             </td>
                         </tr>
                         <tr>
@@ -192,7 +217,18 @@
                                 
                             </td>
                             <td> 
-                                {{ $incident->where('Request_Status', 'Canceled')->count() }}
+                                {{ $ticket_request_canceled->totalPoints }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Aprroved
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td> 
+                               {{ count($incident->where('Approval_Status', 'Approved')) }}
                             </td>
                         </tr>
                         <tr>
@@ -203,7 +239,7 @@
                                 
                             </td>
                             <td> 
-                                {{ $incident->where('Request_Status', 'Closed')->count() }}
+                                {{ $ticket_incident_closed->totalPoints }}
                             </td>
                         </tr>
                         <tr>
@@ -214,7 +250,82 @@
                                 
                             </td>
                             <td> 
-                                -
+                                {{ $sla_realisasi_incident}} %
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-left:20px;">
+        <div class="col-md-6">
+            <div class="db-card-detail" style="border-top: 10px solid #148A9D;padding-top:8px;margin-top:-40px;">
+                <h5> Total Change: {{ count($jumlah_task) }} </h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col"> </th>
+                          <th scope="col"><font color="red">Total</font> 
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <td>
+                                In Progress
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td> 
+                                0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            Resolved
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td> 
+                                0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Canceled
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td> 
+                                0
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Closed
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td> 
+                                {{ $task_closed->totalClosed }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                SLA Realisasi (%)
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td> 
+                                {{ $sla_realisasi_task }} %
                             </td>
                         </tr>
                       </tbody>
