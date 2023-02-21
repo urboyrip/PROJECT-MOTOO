@@ -53,7 +53,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($teknisi_tiket as $teknisi)
+                        @foreach($teknisi_tiket->slice(0, 5) as $teknisi)
                         <tr>
                             <td>
                                 {{ $teknisi->Technician }}
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="col-md-2"  style="margin-left:75px;">
-            <div class="db-card-detail" style="border-top:10px solid #FFC107">
+            <div class="db-card-detail" style="margin-top:25px;border-top:10px solid #FFC107">
                 <h5> Top 5 Most Task this Week (Technician) </h5>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
@@ -90,7 +90,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($teknisi_task as $task)
+                        @foreach($teknisi_task->slice(0, 5) as $task)
                         <tr>
                             <td>
                                 {{ $task->Technician }}
@@ -99,7 +99,7 @@
 
                             </td>
                             <td> 
-                                {{ $task->Total_Technician }}
+                                {{ $task->totalTechnician }}
                             </td>
                             <td> 
                                 <i class="fa fa-search-plus"></i>

@@ -12,7 +12,6 @@ export class TiketController {
     getJumlahTechnician(){
         return this.TiketService.CountTechnician();
     }
-
     @Get()
     homeTiket() {
         return 'Kamu berhasil masuk ke halaman tiket'

@@ -27,6 +27,10 @@ export class TaskController {
     getSLAPoints(){
         return this.TaskService.CountSLAPoints()
     }
+    @Get('jumlah-technician')
+    getJumlahTechnician(){
+        return this.TaskService.CountTechnician();
+    }
     @Get(':id')
     getDataTiketByData(@Param('id')id:number){
         return this.TaskService.LihatPerData(id);
@@ -43,8 +47,5 @@ export class TaskController {
     deleteDataTiket(@Param('id')id:number){
         return this.TaskService.DeleteData(id);
     }
-    @Get('jumlah-technician')
-    getJumlahTechnician(){
-        return this.TaskService.CountTechnician();
-    }
+    
 }
