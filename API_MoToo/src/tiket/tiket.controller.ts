@@ -8,13 +8,13 @@ export class TiketController {
     
     constructor(public TiketService: TiketService) {}
 
-    @Get('jumlah-technician')
-    getJumlahTechnician(){
-        return this.TiketService.CountTechnician();
-    }
     @Get()
     homeTiket() {
         return 'Kamu berhasil masuk ke halaman tiket'
+    }
+    @Get('jumlah-technician')
+    getJumlahTechnician(){
+        return this.TiketService.CountTechnician();
     }
     @Get('data')
     getDataTiket(){
