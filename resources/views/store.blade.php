@@ -1,18 +1,6 @@
 @extends('layouts.main')
 @section('container')
 <div id="box-utama">
-	{{-- @if($request_temp->has('categories') || $request_temp->has('device') || $request_temp->has('login'))
-    <div id="home-category">
-        <a href="/">Home </a> /
-		<span style="color:red"> {{ $request_temp->categories }} / {{ $request_temp->device }} / {{ $request_temp->login }} </span> 
-    </div>
-	@else
-	<div id="home-category">
-        <a href="/">Home </a>/ 
-		<span style="color:red"> All Categories </span> 
-    </div>
-	@endif --}}
-
 	<div id="home-category">
         <a href="/">Home </a> /
 		<span style="color:red"> {{ $search }}</span> 
@@ -39,7 +27,7 @@
 									<label for="Non ERP">
 										<span></span>
 										Non ERP
-										<small>(20)</small>
+										<small>({{ $app->where('Category', "Non ERP")->count() }})</small>
 									</label>
 								</div>
 
@@ -48,7 +36,7 @@
 									<label for="Indbound">
 										<span></span>
 										Indbound
-										<small>(41)</small>
+										<small>({{ $app->where('Category', "Indbound")->count() }})</small>
 									</label>
 								</div>
 
@@ -57,7 +45,7 @@
 									<label for="Outbound">
 										<span></span>
 										Outbound
-										<small>(17)</small>
+										<small>({{ $app->where('Category', "Outbound")->count() }})</small>
 									</label>
 								</div>
 							
@@ -66,7 +54,7 @@
 									<label for="Infrastrukture">
 										<span></span>
 										Infrastrukture
-										<small>(9)</small>
+										<small>({{ $app->where('Category', "Infrastukture")->count() }})</small>
 									</label>
 								</div>
 							</div>
@@ -76,19 +64,19 @@
 							<h3 class="aside-title">Login User</h3>
 							<div class="checkbox-filter">
 								<div class="input-radio">
-									<input type="radio" name="login" id="AD" value="AD" class="checkbox">
-									<label for="AD">
+									<input type="radio" name="login" id="Konsumen" value="Konsumen" class="checkbox">
+									<label for="Konsumen">
 										<span></span>
-										AD
-										<small>(178)</small>
+										Konsumen
+										<small>({{ $app->where('Login', "Konsumen")->count() }})</small>
 									</label>
 								</div>
 								<div class="input-radio">
-									<input type="radio" name="login" id="Non AD" value="Non AD" class="checkbox">
-									<label for="Non AD">
+									<input type="radio" name="login" id="Non Konsumen" value="Non Konsumen" class="checkbox">
+									<label for="Non Konsumen">
 										<span></span>
-										Non AD
-										<small>(42)</small>
+										Non Konsumen
+										<small>({{ $app->where('Login', "Non Konsumen")->count() }})</small>
 									</label>
 								</div>
 							</div>
@@ -104,7 +92,7 @@
 									<label for="Website">
 										<span></span>
 										Website
-										<small>(178)</small>
+										<small>(({{ $app->where('Device', "Website")->count() }}))</small>
 									</label>
 								</div>
 								<div class="input-radio">
@@ -112,7 +100,7 @@
 									<label for="Mobile">
 										<span></span>
 										Mobile
-										<small>(42)</small>
+										<small>({{ $app->where('Device', "Mobile")->count() }})</small>
 									</label>
 								</div>
 								<div class="input-radio">
@@ -120,7 +108,7 @@
 									<label for="Desktop">
 										<span></span>
 										Desktop
-										<small>(755)</small>
+										<small>({{ $app->where('Device', "Desktop")->count() }})</small>
 									</label>
 								</div>
 								@if($request_temp->search != "")
@@ -132,39 +120,21 @@
 						</div>
 						<!-- /aside Widget -->
 						</form>
-						
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Top application</h3>
+							@foreach($top_app as $app)
 							<div class="product-widget">
 								<div class="product-img">
 									<img src="{{ asset('img/app-logo/product01.png') }}" alt="">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">TOTAL PRODUCTIVE MAINTENANCE (TPM)</a></h3>
+									<p class="product-category">{{ $app->application->Category }}</p>
+									<h3 class="product-name"><a href="#">{{ $app->application->Nama_Aplikasi }}</a></h3>
+									<h6><span style="color:#BF2C45">{{ $app->avg*1 }} / 5 <i class="fa fa-star"></i> </span></h6>
 								</div>
 							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="{{ asset('img/app-logo/product02.png') }}" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">PLANT INFORMATION SYSTEM (PIS)</a></h3>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="{{ asset('img/app-logo/product03.png') }}" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">MAINTENANCE SYSTEM ONLINE (MSO)</a></h3>
-								</div>
-							</div>
+							@endforeach
 						</div>
 						<!-- /aside Widget -->
 					</div>
@@ -191,10 +161,8 @@
 						<!-- /store top filter -->
 
 						<!-- store products -->
-						<div class="row">
+						<div class="row" style="margin-left:-50px;">
 							<!-- product -->
-							
-
 							@foreach($application as $app)
 							<div class="col-md-4 col-xs-6">
 								<div class="product">
@@ -227,7 +195,17 @@
 										</div>
 										@endif
 										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add favorite</span></button>
+											@auth
+											<form method="post" action="{{ Route('addfav') }}">
+												@csrf
+												<input name="app_id" value="{{ $app->id }}" style="display:none">
+												<input name="user_id" value="{{ auth()->user()->id }}" style="display:none">
+												<button style="background-color:white;border:none;" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></button>
+											</form>
+											@endauth
+											@guest
+											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">Login to add this to your favorites!</span></button>
+											@endguest
 											<button class="add-to-compare"><i class="fa fa-file"></i><span class="tooltipp">document</span></button>
 										</div>
 									</div>									

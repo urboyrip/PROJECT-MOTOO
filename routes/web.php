@@ -6,6 +6,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ApplicationTeknisiController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ReviewAppController;
 
 
@@ -41,6 +42,7 @@ Route::get('/home', [ApplicationController::class, 'getApplication']);
 
 Route::get('/detail/{x}', [ApplicationController::class, 'appDetails']);
 Route::post('/addReview', [ReviewAppController::class, 'create'])->name('addReviewApp');
+Route::post('/editReview', [ReviewAppController::class, 'edit'])->name('editReviewApp');
 
 Route::get('/store', [ApplicationController::class, 'searchApp'])->name('SearchApp');
 Route::get('/store/filter', [ApplicationController::class, 'filterApp'])->name('filterApp');
@@ -57,19 +59,15 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/profile/editpassword/{x}', [UserController::class, 'changePassword'])->name('updatePassword');
 });
 
-Route::group(['middleware'=> ['auth','role:Admin']], function(){
+Route::group(['middleware'=> ['auth','admin_or_reporter']], function(){
     Route::get('/dashboard', [TicketController::class, 'dashboardSite']);
     Route::get('/chart', [TicketController::class, 'Chart']);
     Route::get('/chart/filter', [TicketController::class, 'filterChart'])->name('filterChart');
     Route::get('/report', [TicketController::class, 'reportSite']);
+    Route::get('/dashboard/detail_tiket_teknisi/{x}', [TicketController::class, 'detailTeknisi']);
+    Route::get('/dashboard/detail_task_teknisi/{x}', [TaskController::class, 'detailTeknisi']);
 });
 
-Route::group(['middleware'=> ['auth','role:Reporter']], function(){
-    Route::get('/dashboard', [TicketController::class, 'dashboardSite']);
-    Route::get('/chart', [TicketController::class, 'Chart']);
-    Route::get('/chart/filter', [TicketController::class, 'filterChart'])->name('filterChart');
-    Route::get('/report', [TicketController::class, 'reportSite']);
-});
 
 Route::group(['middleware'=> ['auth', 'role:Admin']], function(){
     Route::get('/data-tiket-nestjs', function(){

@@ -16,11 +16,7 @@ class FavoriteController extends Controller
 
     public function index()
     {
-        // $date = "02/09/23";
-        // $stringtotime= strtotime($date);
-        // $type = getDate($stringtotime);
-        // dd(date('d/M/Y', $stringtotime));    
-        $favorite = Favorite::where('user_id', auth()->user()->id)->paginate(8);
+        $favorite = Favorite::where('user_id', auth()->user()->id)->paginate(4);
         return view('favorites', [
             'page'=> 'Favorite Apps',
             'rev' => Review_App::all(),

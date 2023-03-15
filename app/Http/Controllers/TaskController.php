@@ -8,6 +8,23 @@ use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
+
+    public function detailTeknisi($nama_teknisi){
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'http://localhost:3030/task/data');
+        $task = response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+        $task = json_decode($task->getContent());
+        $task = collect($task);
+        
+        $filteredTask = $task->where("Technician", $nama_teknisi);
+
+        return view('admin.detail_task_teknisi',[
+            'task' => $filteredTask,
+            'request' => $nama_teknisi
+        ]);
+
+    }
+
     /**
      * Display a listing of the resource.
      *

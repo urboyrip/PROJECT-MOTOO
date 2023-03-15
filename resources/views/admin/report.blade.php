@@ -46,7 +46,7 @@
 
     <div class="row">
         <div class="col-md-2">
-            <div class="ticket-status-card" style="background-color: #148A9D;height:80px;width:330px;">
+            <div class="ticket-status-card" style="background-color: #148A9D;height:80px;width:400px;">
                 <span style="padding-left:12px;padding-top:10px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
                     <i class="fa fa-ticket fa-2x" aria-hidden="true"></i>
                 </span>
@@ -59,8 +59,8 @@
                 
             </div>
         </div>
-        <div class="col-md-2"  style="margin-left:150px;">
-            <div class="ticket-status-card" style="height:80px;background-color: green;;color:black;width:330px;">
+        <div class="col-md-2"  style="margin-left:235px;">
+            <div class="ticket-status-card" style="height:80px;background-color: green;;color:black;width:400px;">
                 <span style="padding-left:12px;padding-top:10px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
                     <i class="fa fa-exchange     fa-2x" aria-hidden="true"></i>
                 </span>
@@ -73,8 +73,8 @@
                 
             </div>
         </div>
-        <div class="col-md-2"  style="margin-left:150px;">
-            <div class="ticket-status-card" style="height:80px;background-color: #FFC107;;color:black;width:330px;">
+        <div class="col-md-2"  style="margin-left:235px;">
+            <div class="ticket-status-card" style="height:80px;background-color: #FFC107;;color:black;width:400px;">
                 <span style="padding-left:12px;padding-top:10px;margin-right:8px;border-radius:4px;width:60px;height:93px;float:left">
                     <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i>
                 </span>
@@ -217,7 +217,7 @@
                                 
                             </td>
                             <td> 
-                                {{ $ticket_request_canceled->totalPoints }}
+                                {{ $ticket_incident_canceled->totalPoints }}
                             </td>
                         </tr>
                         <tr>

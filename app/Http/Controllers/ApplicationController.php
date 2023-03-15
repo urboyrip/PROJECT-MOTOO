@@ -10,11 +10,10 @@ use App\Models\User;
 use App\Http\Requests\StoreapplicationRequest;
 use App\Http\Requests\UpdateapplicationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-class ApplicationController extends Controller
-{
+class ApplicationController extends Controller{
     public function searchApp(Request $request){
-
         if ($request->has('search')){
             if($request->kategori == "" && $request->search == ""){
                 $search = "All Categories";
@@ -38,11 +37,20 @@ class ApplicationController extends Controller
             $search = "All Categories";
         }
     
+
+        $top_app = Review_App::selectRaw('application_id, avg(Penilaian) as avg')
+                    ->groupBy('application_id')
+                    ->orderBy('avg', 'desc')
+                    ->paginate(3);
+        
+
         return view('store', [
+            'app' => application::all(),
             'page' => 'Search App',
             'search' => $search,
             'request_temp' => $request,
             'rev' => Review_App::all(),
+            'top_app' => $top_app,
             'application' => $application
         ]);
     }
@@ -185,10 +193,17 @@ class ApplicationController extends Controller
             }
         }
 
+        $top_app = Review_App::selectRaw('application_id, avg(Penilaian) as avg')
+                    ->groupBy('application_id')
+                    ->orderBy('avg', 'desc')
+                    ->paginate(3);
+        
         return view('store', [
+            'app' => application::all(),
             'search' => $search,
             'rev' => Review_App::all(),
             'page' => 'Filter',
+            'top_app' => $top_app,
             'request_temp' => $request,
             'application' => $application,
         ]); 
@@ -200,18 +215,29 @@ class ApplicationController extends Controller
             'page' => 'Home',
             'application' => application::paginate(8),
             'rev' => Review_App::all()
-          //  'appfav' => Favorite::where('user_id', auth()->user()->id)->get()
         ]);
     }
 
+
     public function appDetails($x){
         $app = application::find($x);
-        $relate_app = application::where('Category', $app->Category)->paginate(4);
+        $relate_app = application::where('Category', $app->Category)->get();
+        $review = Review_app::where('application_id', $x)->get();
+        $relate_app_final= $relate_app->reject(function($data, $x){
+                return $data['application_id'] == $x;
+            });
+        $paginate = 4;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $relate_app_paginate = new LengthAwarePaginator($relate_app_final->forPage($currentPage, $paginate), $relate_app_final->count(), $paginate, $currentPage);
+        
+
+        
         return view('detail', [
             'page' => 'Apps Detail',
-            'review' => Review_App::where('application_id', $x)->paginate(3),
+            'review' =>  Review_App::where('application_id', $x)->paginate(3),
+            'review_all' => Review_App::where('application_id', $x)->get(),
             'app' => $app,
-            'related_app' => $relate_app
+            'related_app' => $relate_app_paginate
         ]);
     }
 

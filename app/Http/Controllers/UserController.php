@@ -49,7 +49,7 @@ class UserController extends Controller{
             'Nomor_HP' => $request->nomor_hp,
             'Nama_User' => $request->nama,
             'Email' => $request->email,
-            'Role' => 'AD',
+            'Role' => 'Konsumen',
             'Status_Keaktifan'=> true, 
         ]);
 

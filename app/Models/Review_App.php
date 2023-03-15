@@ -20,7 +20,7 @@ class Review_App extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function applications(){
+    public function application(){
         return $this->belongsTo(application::class);
     }
 }

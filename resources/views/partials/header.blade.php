@@ -20,8 +20,8 @@
                         <form action="{{ Route('SearchApp') }}" method="GET">
                             <select name="kategori" class="input-select-categories">
                                 <option value="">All Categories</option>
-                                <option value="AD">AD</option>
-                                <option value="Non AD">Non AD</option>
+                                <option value="Konsumen">Konsumen</option>
+                                <option value="Non Konsumen">Non Konsumen</option>
                             </select>
                             <input id="input-search" name="search" type="search" placeholder="Search here">
                             <button type="submit" class="search-button">Search</button>
@@ -43,11 +43,19 @@
                 </div>    
                 @endguest
                 @auth
+                @if( auth()->user()->Role == "Reporter" || auth()->user()->Role == "Admin")
+                <div class="col-md-3 clearfix">
+                    <div class="fav-apps">
+                        <a href="/dashboard"><b>Dashboard</b></a>
+                    </div>
+                </div>
+                @else
                 <div class="col-md-3 clearfix">
                     <div class="fav-apps">
                         <a href="/favorites"><b>Favorites Apps</b></a>
                     </div>
                 </div>
+                @endif
                 <div class="col-md-3 clearfix">
                     <div class="my-account">
                         <a style="color:#D10024"href="/profile/{{ auth()->user()->id }}"><b>My Account</b></a>

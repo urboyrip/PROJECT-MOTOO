@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class role
+class AdminOrReporter
 {
     /**
      * Handle an incoming request.
@@ -14,12 +14,14 @@ class role
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-
-    public function handle($request, Closure $next, ...$Role)
+    public function handle($request, Closure $next)
     {
-         if(in_array($request->user()->Role, $Role)){
-             return $next($request);
-         }
-         return redirect()->route('home');
-    }
-    }
+        $user = $request->user();
+
+        if ($user && ($user->Role === 'Admin' || $user->Role === 'Reporter')) {
+            return $next($request);
+        }
+
+        return redirect()->route('home');
+        }
+}

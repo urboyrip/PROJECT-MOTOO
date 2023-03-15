@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-4">
                     <h5>Email</h5>
-                    <input type="text" name="email" class="input-box-register" style="border-radius:5px;" placeholder="Jl. dummy number XX">
+                    <input type="text" name="email" class="input-box-register" style="border-radius:5px;" placeholder="youremail@mail.com">
                     <br>
 
                     <h5>Nomor HP</h5>

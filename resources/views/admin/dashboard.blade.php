@@ -53,26 +53,23 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($teknisi_tiket->slice(0, 5) as $teknisi)
+                        @foreach($teknisi_tiket->slice(0, 5) as $tiket)
                         <tr>
                             <td>
-                                {{ $teknisi->Technician }}
+                                {{ $tiket->Technician }}
                             </td>
                             <td>
                             </td>
                             <td> 
-                                {{ $teknisi->totalTechnician }}
+                                {{ $tiket->totalTechnician }}
                             </td>
                             <td> 
-                                <i class="fa fa-search-plus"></i>
+                                <a href="/dashboard/detail_tiket_teknisi/{{ $tiket->Technician }}"> <i class="fa fa-search-plus"></i> </a>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                {{-- <div style="margin-top:-30px;float:right">
-                    {{ $teknisi_tiket->links() }}
-                </div> --}}
                 </div>
             </div>
         </div>
@@ -84,7 +81,7 @@
                       <thead>
                         <tr>
                           <th scope="col">Name</th>
-                          <th scope="col">Ticket Close</th>
+                
                           <th scope="col">Total Ticket</th>
                           <th scope="col"><font color="red">More</font> 
                         </tr>
@@ -95,14 +92,12 @@
                             <td>
                                 {{ $task->Technician }}
                             </td>
-                            <td>
-
-                            </td>
+                 
                             <td> 
                                 {{ $task->totalTechnician }}
                             </td>
                             <td> 
-                                <i class="fa fa-search-plus"></i>
+                                <a href="/dashboard/detail_task_teknisi/{{ $task->Technician }}"> <i class="fa fa-search-plus"></i> </a>
                             </td>
                         </tr>
                         @endforeach
@@ -112,19 +107,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class="row" style="margin-left:20px;">
-        <div class="col-md-6">
-            <div class="db-card-detail" style="border-top: 10px solid green">
-                <h5> Top 5 Most Ticket this Week (Technician)</h5>
-                <div class="table-responsive">
-                    
-                @foreach($tiket_api as $tiket)
-                {{ $tiket->Request_ID }}
-                @endforeach
-                </div>
-            </div>
-        </div>
-    </div> --}}
 </div>
     
 

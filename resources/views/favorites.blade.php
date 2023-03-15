@@ -4,12 +4,14 @@
     <div class="container">
         <div class="row">
             <div id="categories">
+                @if(count($favorites) > 0)
                 Your favorite application
+                @endif
             </div>  
         </div>
         <hr>
         <div id="row">
-        
+            @if(count($favorites) > 0)
             @foreach($favorites as $fav)
             <a>
             <div class="col-lg-3 col-xs-6">
@@ -57,7 +59,18 @@
                 </div>
             </div>
             @endforeach
+            @else
+            <div style="margin:10%;margin-left:0;">
+                <h4 style=" color:#BF2C45">
+                    Your favorite application list is empty!
+                </h4>
+            </div>
+            <hr>
+            @endif
         </div>
+    </div>
+    <div style="float:right;margin-right:30px;">
+        {{ $favorites->links() }}
     </div>
 </div>
 @endsection

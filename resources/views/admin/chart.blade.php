@@ -13,18 +13,6 @@
                     <h4> Complete vs In Progress </h4>
                     <h6> Data oleh: SIG Database</h6>
                 </center>
-                {{-- <div style="float:right;margin-top:-50px;"> 
-                    <form action="{{ Route('filterChart') }}" method="GET">
-                        <select style="border-radius:5px;border:none;" name="year" class="input-select-categories" onchange='if(this.value != 0) {this.form.submit();} '>
-                            <option value="0">Filter Year</option>
-                            <option value="All Year">All Year</option>
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                        </select>
-                    </form>
-                </div> --}}
                 <br>
                 <div id="grafik" style="margin-left:-60px;"></div>
             </div>
@@ -73,14 +61,14 @@
 <div class="container"> 
         <div class="row" style="margin-left:20px;margin-bottom:35px;">
             <div class="col-md-6">
-                <div class="db-card-detail" style="border-top:10px solid green; height:430px;">
+                <div class="db-card-detail" style="margin-top:20px;border-top:10px solid green; height:430px;">
                     <figure class="highcharts-figure">
                         <div id="bar-chart-ticket-inprogress" style="margin-top:-15px;"></div>
                     </figure>
                 </div>
             </div>
             <div class="col-md-2" style="margin-left:75px;">
-                <div class="db-card-detail" style="border-top:10px solid #FFC107; height:430px;">
+                <div class="db-card-detail" style="margin-top:20px;border-top:10px solid #FFC107; height:430px;">
                     <figure class="highcharts-figure">
                         <div id="bar-chart-ticket-complete" style="margin-top:-15px;"></div>
                     </figure>

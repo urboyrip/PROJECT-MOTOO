@@ -53,9 +53,14 @@ class ReviewAppController extends Controller
      * @param  \App\Models\Review_App  $review_App
      * @return \Illuminate\Http\Response
      */
-    public function edit(Review_App $review_App)
+    public function edit(Request $request)
     {
-        //
+        Review_App::where('user_id', $request->user_id)
+        ->where('application_id', $request->id_aplikasi)->update([
+            'Deskripsi' => $request->isiReview,
+            'Penilaian' => (int)$request->rating
+        ]);
+        return redirect()->back();
     }
 
     /**

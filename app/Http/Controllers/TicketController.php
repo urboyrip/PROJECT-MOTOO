@@ -18,14 +18,11 @@ class TicketController extends Controller
 //How to get month from date type using eloquent
     public function Chart(){
         $client = new \GuzzleHttp\Client();
-        $year = now()->format('Y');
-
 
         $response = $client->request('GET', 'http://localhost:3030/tiket/jumlah-technician');
         $top_teknisi_tiket = response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
         $top_teknisi_tiket = json_decode($top_teknisi_tiket->getContent());
         $top_teknisi_tiket = collect($top_teknisi_tiket);
-
 
 
         // data tiket complete
@@ -34,6 +31,11 @@ class TicketController extends Controller
         $tiket = json_decode($tiket->getContent());
         $tiket = collect($tiket);
         
+        $response = $client->request('GET', 'http://localhost:3030/tiket/data');
+        $tiket_api = response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+        $tiket_api = json_decode($tiket_api->getContent());
+        $tiket_api = collect($tiket_api);
+
         for($i = 1;$i<=12;$i++){
             $ticket_complete[$i] = 0;
             $ticket_inprogress[$i] = 0;
@@ -425,35 +427,31 @@ class TicketController extends Controller
 
         $bulan = ['Januari','Februari','Maret', 'April','Mei','Juni','Juli','Agustus','September','Oktober','November', 'Desember'];
 
-        $teknisi_tiket = Ticket::selectRaw('user_id, count(user_id) as count')
-                            ->groupBy('user_id')
-                            ->orderBy('count', 'desc')
-                            ->get();   
+        // $teknisi_tiket = Ticket::selectRaw('user_id, count(user_id) as count')
+        //                     ->groupBy('user_id')
+        //                     ->orderBy('count', 'desc')
+        //                     ->get();   
                             
-        $i = 0;
-        foreach($teknisi_tiket as $tk){
-            $user = User::where('id', $tk->user_id)->first();
-            $nama_teknisi[$i] =$user->Nama_User;    
-            $i++;
-        }
+        // $i = 0;
+        // foreach($teknisi_tiket as $tk){
+        //     $user = User::where('id', $tk->user_id)->first();
+        //     $nama_teknisi[$i] =$user->Nama_User;    
+        //     $i++;
+        // }
         
-        $teknisi_task = Task::selectRaw('user_id, count(user_id) as count')
-                            ->groupBy('user_id')
-                            ->orderBy('count', 'desc')
-                            ->get();   
+        // $teknisi_task = Task::selectRaw('user_id, count(user_id) as count')
+        //                     ->groupBy('user_id')
+        //                     ->orderBy('count', 'desc')
+        //                     ->get();   
                             
-        $i = 0;
-        foreach($teknisi_task as $tk){
-            $user = User::where('id', $tk->user_id)->first();
-            $nama_teknisi_task[$i] =$user->Nama_User;    
-            $i++;
-        }
+        // $i = 0;
+        // foreach($teknisi_task as $tk){
+        //     $user = User::where('id', $tk->user_id)->first();
+        //     $nama_teknisi_task[$i] =$user->Nama_User;    
+        //     $i++;
+        // }
 
-        $response = $client->request('GET', 'http://localhost:3030/tiket/data');
-        $tiket_api = response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
-        $tiket_api = json_decode($tiket_api->getContent());
-        $tiket_api = collect($tiket_api);
-        
+
         return view('admin.chart',[
             'tiket_api' => $tiket_api,
             // line chart
@@ -497,7 +495,7 @@ class TicketController extends Controller
             }
         }
 
-        $tiket_incident = collect($tiket_request);
+        $tiket_incident = collect($tiket_incident);
         $tiket_request = collect($tiket_request);
 
         // Ticket Request Closed dari API
@@ -646,80 +644,21 @@ class TicketController extends Controller
                             ->get(),
         ]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    
+    public function detailTeknisi($nama_teknisi){
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'http://localhost:3030/tiket/data');
+        $tiket = response($response->getBody(), $response->getStatusCode())->header('Content-Type', 'application/json');
+        $tiket = json_decode($tiket->getContent());
+        $tiket = collect($tiket);
+        
+        $filteredTiket = $tiket->where("Technician", $nama_teknisi);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTicketRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTicketRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTicketRequest  $request
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTicketRequest $request, Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
+        return view('admin.detail_tiket_teknisi',[
+            'tiket' => $filteredTiket,
+            'request' => $nama_teknisi
+        ]);
     }
 }
 

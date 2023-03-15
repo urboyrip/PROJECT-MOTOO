@@ -34,15 +34,6 @@
 
 </head>
 <body>
-{{--     
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/chart.js/Chart.min.js') }}"></script>
-    <!-- jQuery -->
-    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('js/js/bootstrap.bundle.min.js') }}"></script>
-         --}}
-
     <script src="https://code.highcharts.com/highcharts.js"> </script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -58,17 +49,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8" style="margin-left:15px">
-                    <a href="/store" style="color:white;font-weight:bold"><i class="fa fa-bars" aria-hidden="true"></i>  Katalog</a>
+                    
+                    <i class="fa fa-user" aria-hidden="true"></i> {{ auth()->user()->Nama_User }}
                 </div>
                 <div class="col-md-2">
-                    <div id="akun">
-                        <i class="fa fa-user" aria-hidden="true"></i> {{ auth()->user()->Nama_User }}
+                    <div id="akun" style="border:1px solid black;margin-top:-5px;border-radius:5px;background-color:white;padding:7px;">
+                        <a href="/store" style="color:black;font-weight:bold"><i class="fa fa-bars" aria-hidden="true"></i>  Katalog</a>
                     </div>
-                    <div class="my-account" style="margin-top:-2px;margin-right:-330px;float:right">
+                    <div style="margin-top:-5px ;margin-right:-210%;float:right">
                         <form action="{{ Route('logout') }} " method="post">
                         @csrf
-                        <div>
-                            <button style="border:none;background-color:#BF2C45"> <b> Logout </b></button>
+                        <div style="background-color:white;border-radius:5px;border:1px black solid;padding:6px;">
+                            <button style="border:none;color:black;background-color:white"> <b> Logout </b></button>
                         </div>
                     </form>
                     </div>

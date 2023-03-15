@@ -16,13 +16,15 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div id="user-guide">
-                                <a href="/{{ $app->User_Guide }}" target="_blank">
+                                <a href="#" target="_blank">
                                     <h5>
                                         User Guide 
                                     </h5>
                                 </a>
                             </div>
                         </div>
+                        @auth
+                        @if(auth()->user()->Role == "Admin" || auth()->user()->Role == "Teknisi")
                         <div class="col-md-3">
                             <div id="tec-doc">
                                 <a href="/{{ $app->Technical_Document }}" target="_blank">
@@ -32,6 +34,8 @@
                                 </a>
                             </div>
                         </div>
+                        @endif  
+                        @endauth
                     </div>
                 </div>
                 <hr>
@@ -80,9 +84,10 @@
                         @auth
                         @if(auth()->user()->Role=='Teknisi' || auth()->user()->Role=="Admin")
                         <li><a data-toggle="tab" href="#tab2">Teknisi</a></li>
+                        <li><a data-toggle="tab" href="#tab3">Informasi Teknis</a></li>
                         @endif
                         @endauth
-                        <li><a data-toggle="tab" href="#tab3">Informasi Teknis</a></li>
+                        
                     </ul>
                     <!-- /product tab nav -->
 
@@ -91,18 +96,61 @@
                         <!-- tab3  -->
                         <div id="tab1" class="tab-pane fade in active">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="width:240px;">
                                     <div id="review1">
-                                        <center> REVIEW <br>
-                                        {{ $review->where('application_id', $app->id)->avg('Penilaian') }}<br>
-                                        @for ($i = 0; $i<=$review->where('application_id', $app->id)->avg('Penilaian')-1;$i++)
-                                        <i class="fa fa-star"></i>
+                                        <center> 
+                                            REVIEW<br>
+                                        @for ($i = 0; $i<=$review_all->where('application_id', $app->id)->avg('Penilaian')-1;$i++)
+                                        <i class="fa fa-star fa-2x"></i>
                                         @endfor
                                         @if($review->where('application_id', $app->id)->avg('Penilaian') != 5)
                                         @for($k=$i; $k<5;$k++)
-                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star-o empty fa-2x"></i>
                                         @endfor
                                         @endif
+                                        <br>
+                                        <span style="text-align:right;color:#BF2C45">
+                                            @if($review_all->where('application_id', $app->id)->avg('Penilaian')== null)
+                                            No Review Yet
+                                            @else
+                                            {{ $review_all->where('application_id', $app->id)->avg('Penilaian') }}
+                                            @endif
+                                        </span>  
+                                        <hr>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        /{{ $review_all->where('application_id', $app->id)->where('Penilaian', 5)->where('application_id', $app->id)->count() }}
+                                        <br>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        /{{ $review_all->where('application_id', $app->id)->where('Penilaian', 4)->count() }}
+                                        <br>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        /{{ $review_all->where('application_id', $app->id)->where('Penilaian', 3)->count() }}
+                                        <br>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        /{{ $review_all->where('application_id', $app->id)->where('Penilaian', 2)->count() }}
+                                        <br>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        <i class="fa fa-star-o empty"></i>
+                                        /{{ $review_all->where('application_id', $app->id)-> where('Penilaian', 1)->count() }}
                                     </center>
                                     </div>
                                 </div>
@@ -134,17 +182,39 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                @auth
+                                @if($review->contains(function($col){return $col['user_id'] == auth()->user()->id;}))
+                                <div class="col-md-4" style="margin-left:-50px;">
                                     <div id="review3"> 
                                         <h5> 
                                             <center>
-                                                Write A Review 
+                                                Edit Your Review 
                                             </center>  
                                         </h5>
-                                        <form method="post" action={{ Route('addReviewApp') }} class="review-form">
+                                        <form method="post" action={{ Route('editReviewApp') }} class="review-form">
                                             @csrf
-
-                                            @guest
+                                            @auth
+                                            @if(auth()->user()->Role=='Konsumen')
+                                            <div class="input-rating" style="text-align:center;">
+                                                <div class="stars">
+                                                    <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+                                                    <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+                                                    <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+                                                    <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+                                                    <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+                                                </div>
+                                            </div>
+                                            <div id="kotak-isi-review">
+                                                <input name="id_aplikasi" value="{{ $app->id }}" style="display:none">
+                                                <input name="user_id" value="{{ auth()->user()->id }}" style="display:none">
+                                                <input type="text" name="isiReview" class="form-control" style="border-radius:3px;height:180px;padding:35px;padding-left:55px;" placeholder="Edit your review here...">
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="button-submit">
+                                                    SUBMIT EDIT
+                                                </button>
+                                            </div>
+                                            @else
                                             <div class="input-rating" style="text-align:center;">
                                                 <div class="stars">
                                                     <input disabled id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
@@ -156,17 +226,30 @@
                                             </div>
                                             <div id="kotak-isi-review">
                                                 {{-- <input type="text" disabled class="form-control" style="border-radius:3px;height:180px;padding:35px;padding-left:55px;" placeholder="Login to write a review.."> --}}
-                                                <input type="text" disabled name="isiReview" class="form-control" style="border-radius:3px;height:180px;padding:35px;padding-left:55px;" placeholder="Login to write a review..">
+                                                <input disabled type="text" disabled name="isiReview" class="form-control" style="border-radius:3px;height:180px;padding:35px;padding-left:55px;" placeholder="You're not allowed to review">
                                             </div>
                                             <div>
                                                 <button type="submit" class="button-submit" disabled>
                                                     SUBMIT
                                                 </button>
                                             </div>
-                                            @endguest
-
+                                            @endif
+                                            @endauth
+                                        <form> 
+                                    </div>
+                                </div>
+                                @else
+                                <div class="col-md-4" style="margin-left:-50px;">
+                                    <div id="review3"> 
+                                        <h5> 
+                                            <center>
+                                                Write A Review 
+                                            </center>  
+                                        </h5>
+                                        <form method="post" action={{ Route('addReviewApp') }} class="review-form">
+                                            @csrf
                                             @auth
-                                            @if(auth()->user()->Role=='AD')
+                                            @if(auth()->user()->Role=='Konsumen')
                                             <div class="input-rating" style="text-align:center;">
                                                 <div class="stars">
                                                     <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
@@ -211,6 +294,40 @@
                                         <form> 
                                     </div>
                                 </div>
+                                @endif
+                                @endauth
+                                @guest
+                                <div class="col-md-4" style="margin-left:-50px;">
+                                    <div id="review3"> 
+                                        <h5> 
+                                            <center>
+                                                Write A Review 
+                                            </center>  
+                                        </h5>
+                                        <form method="post" action={{ Route('addReviewApp') }} class="review-form">
+                                            @csrf
+                                            <div class="input-rating" style="text-align:center;">
+                                                <div class="stars">
+                                                    <input disabled id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+                                                    <input disabled id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+                                                    <input disabled id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+                                                    <input disabled id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+                                                    <input disabled id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+                                                </div>
+                                            </div>
+                                            <div id="kotak-isi-review">
+                                                {{-- <input type="text" disabled class="form-control" style="border-radius:3px;height:180px;padding:35px;padding-left:55px;" placeholder="Login to write a review.."> --}}
+                                                <input type="text" disabled name="isiReview" class="form-control" style="border-radius:3px;height:180px;padding:35px;padding-left:55px;" placeholder="Login to write a review..">
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="button-submit" disabled>
+                                                    SUBMIT
+                                                </button>
+                                            </div>
+                                        <form> 
+                                    </div>
+                                </div>
+                                @endguest
                             </div>
                         </div>
                         <!-- /tab1  -->
@@ -244,6 +361,7 @@
                         </div>
                         <!-- /tab2  -->
 
+                        
                         <!-- tab3  -->
                         <div id="tab3" class="tab-pane fade in">
                             <div class="row">
@@ -294,28 +412,39 @@
 
 
             <br><br>
-            <div class="row">
+            <div class="row" style="margin-left:30px;margin-right:30px;">
                 <h3>
                     <center>RELATED PRODUCTS</center>
                 </h3>
                 @foreach($related_app as $rel_app)
-                @if($rel_app->id == $app->id)
-                @continue
-                @endif
-                <a>
                 <div class="col-lg-3 col-xs-6">
                     <div class="product">
                         <div class="product-body">
                             <img src="{{ asset('img/app-logo/product01.png') }}" width="225px;">
                             <p class="product-category">{{ $rel_app->Category }}</p>
                             <h3 class="product-name"><a href="/detail/{{ $app->id }}">{{ $rel_app->Nama_Aplikasi }}</a></h3>
+                            @if ($review_all->where('application_id', $app->id) != "[]")
+                            <p style="color:#BF2C45;">
+                                <div class="product-rating">
+                                    @for ($i = 0; $i<=$review_all->where('application_id', $app->id)->avg('Penilaian')-1;$i++)
+                                        <i class="fa fa-star"></i>
+                                    @endfor
+                                    @if($review_all->where('application_id', $app->id)->avg('Penilaian') != 5)
+                                    @for($k=$i; $k<5;$k++)
+                                        <i class="fa fa-star-o empty"></i>
+                                    @endfor
+                                    @endif
+                                </div>
+                            </p>
+                            @else
                             <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o empty"></i>
+                                <i class="fa fa-star-o empty"></i>
+                                <i class="fa fa-star-o empty"></i>
+                                <i class="fa fa-star-o empty"></i>
+                                <i class="fa fa-star-o empty"></i>
                             </div>
+                            @endif
                             <div class="product-btns">
                                 @auth
                                 <form method="post" action="{{ Route('addfav') }}">
@@ -335,7 +464,7 @@
                 </div>
                 @endforeach
         </div>
-        <div style="float:right;">
+        <div style="float:right;margin-right:30px;">
             {{ $related_app->links() }}
         </div>
     </div>
