@@ -12,5 +12,6 @@ async function bootstrap() {
 
   Logger.log(`menggunakan localhost:${port}`,'Running Port');
   Logger.log(`menggunakan database:${database}`,'Running Database');
+  Logger.log(`server API sudah berjalan`,`Running API`);
 }
 bootstrap();
